@@ -1,0 +1,16 @@
+cmds.setToolTo('moveSuperContext')
+
+cmds.xform("node", zeroTransformPivots=True)
+
+cmds.ctxEditMode()
+
+selection = cmds.ls(selection=True, long=True, dependencyNodes=True) or []
+
+rotatePivot = cmds.xform("node", query=True, rotatePivot=True)
+TempPivot.CACHE["node"] = (rotatePivot, self.o___1____l____0__O____0____l__O)
+
+cmds.timeControl(CORE.o_l_____o_____O_____0____1____O___1___o, edit=True, mainListConnection='animationList')
+
+if self.o__l__O_0___1__o__O_O:
+	mel.eval('toggleAutoLoad %sOutlineEd true;' % o____0____1_____0_o_0___1__O____1_1.o____1_____1__O_____o____l_O_o___l__O__l___l())
+        cmds.setToolTo('moveSuperContext')
