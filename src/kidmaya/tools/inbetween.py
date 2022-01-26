@@ -125,15 +125,17 @@ if __name__ == '__main__':
                 
             anim_curve = OpenMayaAnim.MFnAnimCurve(anim_object)
             
-            if anim_curve.numKeys() == 0:
+            if anim_curve.numKeys() < 2:
                 continue
             
             # Get Closet Keyframe
             close_index = anim_curve.findClosest(current_time)
             close_time = anim_curve.time(close_index)
             
-            previous_index = None
-            next_index = None
+            previous_index = -1
+            next_index = -1
+            
+            last_index = anim_curve.numKeys() - 1
             
             if current_time == close_time:
                 # Previous Index
@@ -143,7 +145,7 @@ if __name__ == '__main__':
                     previous_index = close_index
                 
                 # Next Index
-                if close_index < anim_curve.numKeys() - 1:
+                if close_index < last_index:
                     next_index = close_index + 1
                 else:
                     next_index = close_index
@@ -152,53 +154,48 @@ if __name__ == '__main__':
                 # Still not found
                 # Previous Index
                 if close_index == 0 and current_time < close_time:
-                    previous_index = None
+                    previous_index = -1
                     next_index = 0
                 
                 # Next Index
-                elif close_index == anim_curve.numKeys() - 1 and current_time > close_time:
-                    next_index = None
-                    previous_index = anim_curve.numKeys() - 1
+                elif close_index == last_index and current_time > close_time:
+                    next_index = -1
+                    previous_index = last_index
                 
                 else:
                     # Search Previous 2 vs Next 2
-                    if previous_index is None and next_index is None:
-                        distance_query = list()
-                        
-                        for index in range(close_index - 2, close_index + 3):
-                            if 0 <= index <= anim_curve.numKeys() - 1:
-                                distance_query.append(abs(current_time.value() - anim_curve.time(index).value()))
-                        
-                        # Find Min & Max distances
-                        distance_min, distance_max = sorted(distance_query)[:2]
-                        
-                        previous_index = distance_query.index(distance_min)
-                        next_index = distance_query.index(distance_max)
-                        
-                        if previous_index == next_index:
-                            next_index += 1
+                    if previous_index == -1 and next_index == -1:
+                        # Previous
+                        if close_time < current_time:
+                            previous_index = close_index
+                            next_index = close_index + 1
                             
-                        elif previous_index > next_index:
-                            previous_index -=1
-                            next_index += 1
+                        # Next
+                        elif close_time > current_time:
+                            next_index = close_index
+                            previous_index = close_index - 1
+                            
+                        
+            #print(previous_index, next_index)
                         
             if previous_index == next_index:
                 continue
             
-            elif previous_index is None:
-                continue
-                
-            elif next_index is None:
+            elif previous_index == -1 or next_index == -1:
                 continue
             
-            weight = 0.5
+            weight = 1.0
             previous_value = anim_curve.value(previous_index)
             next_value = anim_curve.value(next_index)
             new_value = (next_value - previous_value) * weight + previous_value
             #anim_curve.addKey(current_time, new_value, change=anim_cache)
-            anim_curve.addKey(current_time, new_value)
-            
+            #anim_curve.addKey(current_time, new_value)
+            #cmds.setKeyframe(plug.name(), value=new_value)
             # print(previous_index, next_index)
             
     
     KDebug.log_elapsed_time()
+    
+    # KDebug.update_time()
+    # cmds.inbetween("pCube1",w=1.0)
+    # KDebug.log_elapsed_time()

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/Kid-Maya-2022.iml" filepath="$PROJECT_DIR$/.idea/Kid-Maya-2022.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../Kid-QtPy/.idea/Kid-QtPy.iml" filepath="$PROJECT_DIR$/../Kid-QtPy/.idea/Kid-QtPy.iml" />
     </modules>
   </component>
 </project>

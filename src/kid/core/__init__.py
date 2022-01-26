@@ -8,3 +8,4 @@ from kid.core.kmath import KMath
 from kid.core.kanim import KAnim, KKeyFrame, KKeyTangent, KAnimCurve
 from kid.core.kattribute import KAttribute
 from kid.core.kdebug import KDebug
+from kid.core.kpath import KPath

@@ -77,7 +77,11 @@ class KObject(object):
         raise NotImplemented
 
     def as_dict(self):
-        raise NotImplemented
+        result = dict()
+
+        for x in self.__dict__.keys():
+            result[x] = getattr(self, x)
+        return result
 
     def update(self, *args, **kwargs):
         raise NotImplemented

@@ -2,12 +2,13 @@
 
 # Project Modules
 from kid.core import KObject
-from kid.components import KDummyConstraint
+from kid.io.kio import KIO
+
 
 # Python Modules
 
 
-class TempRotatePivot(KObject):
+class Kmb(object):
     def __init__(self):
         pass
 
