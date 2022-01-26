@@ -1,0 +1,17 @@
+{
+  "head":{
+    "path":"D:\\Dev\\Kid-Maya-2022\\src\\data\\test.json",
+    "version":"1.0.0",
+    "user":"KidKaboom",
+    "date":"08-01-2022 12:12:04",
+    "type":"",
+    "extension":".json"
+  },
+  "data":{
+    "name":"Bob",
+    "languages":[
+      "English",
+      "French"
+    ]
+  }
+}
